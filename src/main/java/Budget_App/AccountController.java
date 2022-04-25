@@ -53,40 +53,80 @@ public class AccountController {
         budget = new Budget(new ArrayList<Expense>());
         savingsAccount= new SavingAccount("SavingAccount", 0, 1);
         checkingAccount= new CheckingAccount("CheckingAccount", 0, 1);
-        handleRefresh();
+
+        savingsAccountView();
     }
 
-    @FXML
-    public void handleRefresh() throws IOException {
+    @FXML 
+    public void savingsAccountView() {
+        root.getChildren().clear();
         budget.LoadState();
+        VBox accountDetails = new VBox(5);
+        accountDetails.setId("AccountDetails");
+        accountDetails.setPadding(new Insets(5, 10, 10, 10));
+        Text money = new Text("Available money: " + savingsAccount.getBalance());
+        accountDetails.getChildren().add(money);
+        root.setPadding(new Insets(10, 20, 20, 20));
+        root.getChildren().add(accountDetails);
+
         if (budget.getExpenses() != null) {
             try {
                 for (Expense ex : budget.getExpenses()) {
-                    VBox textbox = new VBox(5);
-                    textbox.setId("textbox");
-                    textbox.setPadding(new Insets(5, 10, 10, 10));
-        
-                    Text name = new Text(ex.getExpenseName() + ": ");
-                    Text desc = new Text(ex.getDescription());
-                    textbox.getChildren().addAll(name, desc);
-                    
-                    root.getChildren().add(textbox);
-                    root.setPadding(new Insets(10, 20, 20, 20)); 
-                }  
-            } catch(Exception e) {
+                    if (ex.getConnectedAccount().equals("SavingAccount")) {
+                        VBox textbox = new VBox(5);
+                        textbox.setId("textbox");
+                        textbox.setPadding(new Insets(5, 10, 10, 10));
+                        
+                
+                        Text name = new Text("Name: " + ex.getExpenseName());
+                        Text desc = new Text("Description: " + ex.getDescription());
+                        Text cost = new Text("Cost: " + Double.toString(ex.getCost()));
+                        Text category = new Text("Category: " + ex.getSpendingCategory().toString());
+                        textbox.getChildren().addAll(name, desc, cost, category);
+                        root.getChildren().add(textbox);
+                    }
+                }
 
+            } catch(Exception e) {
+                System.err.println(e);
             }
         }
     }
 
     @FXML 
-    public void savingsAccountView() {
-       //TODO: SWAP OUT LABELS AND LIST OF EXPENSES TO THE SAVING ACCOUNT DATA
-    }
-
-    @FXML 
     public void checkingAccountView() {
-       //TODO: SWAP OUT LABELS AND LIST OF EXPENSES TO THE SAVING ACCOUNT DATA
+        root.getChildren().clear();
+        budget.LoadState();
+        VBox accountDetails = new VBox(5);
+        accountDetails.setId("AccountDetails");
+        accountDetails.setPadding(new Insets(5, 10, 10, 10));
+        Text money = new Text("Available money: " + checkingAccount.getBalance());
+        accountDetails.getChildren().add(money);
+        root.setPadding(new Insets(10, 20, 20, 20));
+        root.getChildren().add(accountDetails);
+
+        if (budget.getExpenses() != null) {
+            try {
+                for (Expense ex : budget.getExpenses()) {
+                    if (ex.getConnectedAccount().equals("CheckingAccount")) {
+                        VBox textbox = new VBox(5);
+                        textbox.setId("textbox");
+                        textbox.setPadding(new Insets(5, 10, 10, 10));
+                        
+                
+                        Text name = new Text("Name: " + ex.getExpenseName());
+                        Text desc = new Text("Description: " + ex.getDescription());
+                        Text cost = new Text("Cost: " + Double.toString(ex.getCost()));
+                        Text category = new Text("Category: " + ex.getSpendingCategory().toString());
+                        textbox.getChildren().addAll(name, desc, cost, category);
+                        root.getChildren().add(textbox);
+                    }
+                }
+
+            } catch(Exception e) {
+                System.err.println(e);
+            }
+        }
     }
 
     @FXML 

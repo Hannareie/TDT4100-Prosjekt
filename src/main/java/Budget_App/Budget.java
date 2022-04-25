@@ -7,6 +7,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Budget_App.Expense.SpendingCategory;
+
 public class Budget implements PersistenceActor {
 
     private double monthlyExpenseTotal;
@@ -65,9 +67,9 @@ public class Budget implements PersistenceActor {
 			writer = new PrintWriter("src/main/resources/Budget_App/Budget.txt", "UTF-8");
 			
 			for(var item : expenses){
-                writer.println(item.getExpenseName() + "," + String.valueOf(item.getCost()) + "," + item.getDescription() + "," + item.getConnectedAccount().getAccNum() + "," + item.getSpendingCategory());
+                writer.print(item.getConnectedAccount() + "," + String.valueOf(item.getCost()) + "," + item.getSpendingCategory() + "," + item.getDescription() + "," + item.getExpenseName());
             }
-			writer.close();
+            writer.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
@@ -81,12 +83,10 @@ public class Budget implements PersistenceActor {
             ArrayList<Expense> loaded = new ArrayList<Expense>();
 			Scanner in = new Scanner(new FileReader("src/main/resources/Budget_App/Budget.txt"));
 			while (in.hasNext()) {
-
 				String line = in.next();
 				String[] parts = line.split(",");
-                //var spendingCatString = parts[4];
-				Expense item = new Expense(null, Double.valueOf(parts[1]), null, parts[2], parts[0]);
-				loaded.add(item);
+                Expense item = new Expense(parts[0], Double.valueOf(parts[1]), SpendingCategory.valueOf(parts[2]), parts[3], parts[4]);
+                loaded.add(item);
 			}
 			in.close();
             this.expenses = loaded;

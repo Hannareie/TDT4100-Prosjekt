@@ -62,30 +62,40 @@ public class performActionController {
     @FXML
     public void handleWithdraw() {
         String withdraw = Amount.getText();
-        Boolean is_CheckingAccount = savingsAccountBoolean.selectedProperty().getValue();
+        Boolean is_CheckingAccount = checkingAccountBoolean.isSelected();
+        Boolean is_SavingAccount = savingsAccountBoolean.isSelected();
         double amount = Double.parseDouble(withdraw);
 
         if (is_CheckingAccount){
             this.accountController.checkingAccount.Withdraw(amount);
+            handleExit();
         }
-        else {
+        else if (is_SavingAccount) {
             this.accountController.savingsAccount.Withdraw(amount);
+            handleExit();
+        } else {
+            System.out.println("Choose an account");
         }
     }
 
     @FXML 
     public void handleDeposit() {
         String deposit = Amount.getText();
-        Boolean is_CheckingAccount = savingsAccountBoolean.selectedProperty().getValue();
+        Boolean is_CheckingAccount = checkingAccountBoolean.isSelected();
+        Boolean is_SavingAccount = savingsAccountBoolean.isSelected();
         double amount = Double.parseDouble(deposit);
 
         if (is_CheckingAccount){
             this.accountController.checkingAccount.Deposit(amount);
             this.accountController.budget.SaveState();
+            handleExit();
         }
-        else {
+        else if (is_SavingAccount) {
             this.accountController.savingsAccount.Deposit(amount);
             this.accountController.budget.SaveState();
+            handleExit();
+        } else {
+            System.out.println("Choose an account");
         }
     }
 
@@ -96,16 +106,24 @@ public class performActionController {
         double cost = Double.parseDouble(expenseCost.getText());
         String desc = expenseDescription.getText() == null ? "Default" : expenseDescription.getText();
         SpendingCategory category = SpendingCategory.valueOf(expenseCategory.getValue());
-        Boolean is_CheckingAccount = savingsAccountBoolean.isSelected();
+        Boolean is_CheckingAccount = checkingAccountBoolean.isSelected();
+        Boolean is_SavingAccount = savingsAccountBoolean.isSelected();
         
         if (is_CheckingAccount) {
-            Expense ex = new Expense(accountController.getCheckingAccount(), cost, category, desc, name);
+            Expense ex = new Expense("CheckingAccount", cost, category, desc, name);
             this.accountController.budget.addExpense(ex);
+            this.accountController.budget.SaveState();
+            handleExit();
+        } else if (is_SavingAccount) {
+            Expense ex = new Expense("SavingAccount", cost, category, desc, name);
+            this.accountController.budget.addExpense(ex);
+            this.accountController.budget.SaveState();
+            handleExit();
         } else {
-            Expense ex = new Expense(accountController.getSavingsAccount(), cost, category, desc, name);
-            this.accountController.budget.addExpense(ex);
+            System.out.println("Choose an account");
         }
         this.accountController.budget.SaveState();
+        handleExit();
     }
 
     @FXML

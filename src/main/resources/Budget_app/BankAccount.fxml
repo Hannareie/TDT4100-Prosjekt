@@ -22,12 +22,12 @@
                   <Font size="29.0" />
                </font>
             </Text>
-            <Button fx:id="savingsAccountButton" layoutX="508.0" layoutY="107.0" mnemonicParsing="false"  prefHeight="35.0" prefWidth="101.0" text="Sparekonto" />
+            <Button fx:id="savingsAccountButton" layoutX="508.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#savingsAccountView" prefHeight="35.0" prefWidth="101.0" text="Sparekonto" />
+            <Button fx:id="checkingAccountButton" layoutX="508.0" layoutY="152.0" mnemonicParsing="false" onMouseClicked="#checkingAccountView" prefHeight="35.0" prefWidth="101.0" text="Brukskonto" />
             <Button fx:id="changeDepositButton" layoutX="502.0" layoutY="310.0" mnemonicParsing="false" onMouseClicked="#changeDepositView" prefHeight="35.0" prefWidth="113.0" text="Innskudd til konto" />
             <Button fx:id="changeTransferButton" layoutX="502.0" layoutY="396.0" mnemonicParsing="false" onMouseClicked="#changeTransferView" prefHeight="35.0" prefWidth="113.0" text="Overføre til konto" />
             <Button fx:id="changeWithdrawButton" layoutX="502.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#changeWithdrawView" prefHeight="35.0" prefWidth="113.0" text="Uttakk fra konto" />
             <Button fx:id="newExpenseButton" layoutX="502.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#changeNewExpenseView" prefHeight="35.0" prefWidth="113.0" text="Ny utgift" />
-            <Button fx:id="checkingAccountButton" layoutX="508.0" layoutY="152.0" mnemonicParsing="false"  prefHeight="35.0" prefWidth="101.0" text="Brukskonto" />
             <Text layoutX="508.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velg konto" />
             <Text layoutX="508.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Utfør handling" />
          </children>
