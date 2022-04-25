@@ -85,7 +85,7 @@ public class Budget implements PersistenceActor {
 				String line = in.next();
 				String[] parts = line.split(",");
                 //var spendingCatString = parts[4];
-				Expense item = new Expense(null, Integer.valueOf(parts[1]), null, parts[2], parts[0]);
+				Expense item = new Expense(null, Double.valueOf(parts[1]), null, parts[2], parts[0]);
 				loaded.add(item);
 			}
 			in.close();
