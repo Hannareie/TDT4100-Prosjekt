@@ -26,7 +26,9 @@ public class performActionController {
         @FXML
         private Button exitButton;
         @FXML
-        private CheckBox expCheckingBool;
+        private CheckBox savingsAccountBoolean;
+        @FXML
+        private CheckBox checkingAccountBoolean;
         @FXML
         private CheckBox expSavingsBool;
         @FXML
@@ -60,7 +62,7 @@ public class performActionController {
     @FXML
     public void handleWithdraw() {
         String withdraw = Amount.getText();
-        Boolean is_CheckingAccount = expCheckingBool.selectedProperty().getValue();
+        Boolean is_CheckingAccount = savingsAccountBoolean.selectedProperty().getValue();
         double amount = Double.parseDouble(withdraw);
 
         if (is_CheckingAccount){
@@ -74,7 +76,7 @@ public class performActionController {
     @FXML 
     public void handleDeposit() {
         String deposit = Amount.getText();
-        Boolean is_CheckingAccount = expCheckingBool.selectedProperty().getValue();
+        Boolean is_CheckingAccount = savingsAccountBoolean.selectedProperty().getValue();
         double amount = Double.parseDouble(deposit);
 
         if (is_CheckingAccount){
@@ -87,12 +89,13 @@ public class performActionController {
 
     @FXML
     public void handleAddExpense() {
-        String name = expenseName.getText();
+        String name = expenseName.getText() == null ? "Default" : expenseName.getText();
         double cost = Double.parseDouble(expenseCost.getText());
-        String desc = expenseDescription.getText();
-        SpendingCategory category = SpendingCategory.valueOf(expenseCategory.getValue());
-        Boolean is_CheckingAccount = expCheckingBool.selectedProperty().getValue();
-        Expense ex;
+        String desc = expenseDescription.getText() == null ? "Default" : expenseDescription.getText();
+        SpendingCategory category = null;//SpendingCategory.valueOf(expenseCategory.getValue());
+        Boolean is_CheckingAccount = savingsAccountBoolean.isSelected();
+
+        Expense ex = new Expense(null, cost, category, desc, desc);
 
         if (is_CheckingAccount) {
             ex = new Expense(accountController.getCheckingAccount(), cost, category, desc, name);
