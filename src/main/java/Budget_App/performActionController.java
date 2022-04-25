@@ -91,20 +91,20 @@ public class performActionController {
 
     @FXML
     public void handleAddExpense() {
+
         String name = expenseName.getText() == null ? "Default" : expenseName.getText();
         double cost = Double.parseDouble(expenseCost.getText());
         String desc = expenseDescription.getText() == null ? "Default" : expenseDescription.getText();
-        SpendingCategory category = null;//SpendingCategory.valueOf(expenseCategory.getValue());
+        SpendingCategory category = SpendingCategory.valueOf(expenseCategory.getValue());
         Boolean is_CheckingAccount = savingsAccountBoolean.isSelected();
-
-        Expense ex = new Expense(null, cost, category, desc, desc);
-
+        
         if (is_CheckingAccount) {
-            ex = new Expense(accountController.getCheckingAccount(), cost, category, desc, name);
+            Expense ex = new Expense(accountController.getCheckingAccount(), cost, category, desc, name);
+            this.accountController.budget.addExpense(ex);
         } else {
-            ex = new Expense(accountController.getSavingsAccount(), cost, category, desc, name);
+            Expense ex = new Expense(accountController.getSavingsAccount(), cost, category, desc, name);
+            this.accountController.budget.addExpense(ex);
         }
-        this.accountController.budget.addExpense(ex);
         this.accountController.budget.SaveState();
     }
 
