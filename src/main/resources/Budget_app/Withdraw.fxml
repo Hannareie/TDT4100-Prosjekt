@@ -37,12 +37,12 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <CheckBox fx:id="expSavingsBool" layoutX="57.0" layoutY="160.0" mnemonicParsing="false" text="Sparekonto">
+            <CheckBox fx:id="savingsAccountBoolean" layoutX="57.0" layoutY="160.0" mnemonicParsing="false" text="Sparekonto">
                <font>
                   <Font size="16.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="expCheckingBool" layoutX="198.0" layoutY="160.0" mnemonicParsing="false" text="Brukskonto">
+            <CheckBox fx:id="checkingAccountBoolean" layoutX="198.0" layoutY="160.0" mnemonicParsing="false" text="Brukskonto">
                <font>
                   <Font size="16.0" />
                </font>

@@ -26,7 +26,7 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="Amount" layoutX="57.0" layoutY="258.0" onMouseClicked="#handleDeposit" prefHeight="35.0" prefWidth="516.0" />
+            <TextField fx:id="Amount" layoutX="57.0" layoutY="258.0" prefHeight="35.0" prefWidth="516.0" />
             <Text layoutX="60.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beløp" wrappingWidth="118.119140625">
                <font>
                   <Font size="18.0" />
@@ -37,12 +37,12 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <CheckBox fx:id="expSavingsBool" layoutX="60.0" layoutY="173.0" mnemonicParsing="false" text="Sparekonto">
+            <CheckBox fx:id="savingsAccountBoolean" layoutX="60.0" layoutY="173.0" mnemonicParsing="false" text="Sparekonto">
                <font>
                   <Font size="16.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="expCheckingBool" layoutX="198.0" layoutY="173.0" mnemonicParsing="false" text="Brukskonto">
+            <CheckBox fx:id="checkingAccountBoolean" layoutX="198.0" layoutY="173.0" mnemonicParsing="false" text="Brukskonto">
                <font>
                   <Font size="16.0" />
                </font>

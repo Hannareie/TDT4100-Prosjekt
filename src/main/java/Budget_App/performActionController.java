@@ -81,9 +81,11 @@ public class performActionController {
 
         if (is_CheckingAccount){
             this.accountController.checkingAccount.Deposit(amount);
+            this.accountController.budget.SaveState();
         }
         else {
             this.accountController.savingsAccount.Deposit(amount);
+            this.accountController.budget.SaveState();
         }
     }
 
