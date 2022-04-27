@@ -16,7 +16,9 @@ public class BudgetApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Budget App");
-        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("BankAccount.fxml"))));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("BankAccount.fxml")));
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 }

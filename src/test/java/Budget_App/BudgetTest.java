@@ -16,8 +16,8 @@ public class BudgetTest {
     @BeforeEach
     public void setUpBudget(){
         testExpenses = new ArrayList<Expense>(Arrays.asList(
-            new Expense(new CheckingAccount("0000111122223333","null"), 10, null, null, "test1"),
-            new Expense(new CheckingAccount("1111222233334444", "null"), 10, null, null, "test2")
+            new Expense("test1", 10, null, null),
+            new Expense("test", 10, null, null)
         ));
         budget = new Budget(testExpenses);
     }
@@ -39,7 +39,7 @@ public class BudgetTest {
     @Test
     void testBudgetExpenseAdd() {
 
-        budget.addExpense(new Expense(new CheckingAccount("1234123412341234","null"),10,null,null,"test3"));
+        budget.addExpense(new Expense("test1", 10,null,null));
         assertEquals(30, budget.getMonthlyExpenseTotal());
 
     }

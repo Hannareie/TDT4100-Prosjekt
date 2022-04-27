@@ -21,12 +21,7 @@
                   <Font size="29.0" />
                </font>
             </Text>
-            <TextArea fx:id="expenseDescription" layoutX="61.0" layoutY="249.0" prefHeight="93.0" prefWidth="509.0" text="awdawd"/>
-            <Text layoutX="65.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kostnadssted" wrappingWidth="130.119140625">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
+            <TextArea fx:id="expenseDescription" layoutX="61.0" layoutY="249.0" prefHeight="93.0" prefWidth="509.0"/>
             <Text layoutX="67.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kategori" wrappingWidth="105.119140625">
                <font>
                   <Font size="18.0" />
@@ -67,14 +62,6 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <CheckBox fx:id="savingsAccountBoolean" layoutX="67.0" layoutY="456.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="168.0" text="Sparekonto">
-               <font>
-                  <Font size="16.0" />
-               </font></CheckBox>
-            <CheckBox fx:id="checkingAccountBoolean" layoutX="252.0" layoutY="456.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="168.0" text="Brukskonto">
-               <font>
-                  <Font size="16.0" />
-               </font></CheckBox>
          </children>
       </Pane>
    </children>

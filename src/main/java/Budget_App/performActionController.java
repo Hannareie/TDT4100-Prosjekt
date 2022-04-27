@@ -54,9 +54,33 @@ public class performActionController {
         @FXML
         private ChoiceBox<String> expenseCategory;
 
+        //fields for handlig transfers
+        @FXML
+        private ChoiceBox<String> accountFrom;
+        @FXML
+        private ChoiceBox<String> accountTo;
+
     @FXML
     public void handleTransfer() {
+        String from = accountFrom.getValue();
+        String to = accountTo.getValue();
+        double amount = Double.parseDouble(Amount.getText());
 
+        if (from.equals("Sparekonto")) {
+            if (to.equals("Brukskonto")) {
+                this.accountController.getCheckingAccount().Transfer(accountController.getSavingsAccount(), amount);
+            } else {
+                System.out.println("Invalid input");
+            }
+        } else if (from.equals("Brukskonto")) {
+            if (from.equals("Sparekonto")) {
+                this.accountController.getCheckingAccount().Transfer(accountController.getSavingsAccount(), amount);
+            } else {
+                System.out.println("Invalid input");
+            }
+        } else {
+            System.out.println("Please choose accounts");
+        }
     }
 
     @FXML
@@ -67,12 +91,22 @@ public class performActionController {
         double amount = Double.parseDouble(withdraw);
 
         if (is_CheckingAccount){
-            this.accountController.checkingAccount.Withdraw(amount);
-            handleExit();
+            try {
+                this.accountController.checkingAccount.Withdraw(amount);
+                handleExit();
+                
+            } catch (Exception e) {
+                System.out.println("Not a valid operation");
+            }
         }
         else if (is_SavingAccount) {
-            this.accountController.savingsAccount.Withdraw(amount);
-            handleExit();
+            try {
+                this.accountController.savingsAccount.Withdraw(amount);
+                handleExit();
+                
+            } catch (Exception e) {
+                System.out.println("Not a valid operation");
+            }
         } else {
             System.out.println("Choose an account");
         }
@@ -86,14 +120,24 @@ public class performActionController {
         double amount = Double.parseDouble(deposit);
 
         if (is_CheckingAccount){
-            this.accountController.checkingAccount.Deposit(amount);
-            this.accountController.budget.SaveState();
-            handleExit();
+            try {
+                this.accountController.checkingAccount.Deposit(amount);
+                this.accountController.budget.SaveState();
+                handleExit();
+                
+            } catch (Exception e) {
+                System.out.println("Not a valid operation");
+            }
         }
         else if (is_SavingAccount) {
-            this.accountController.savingsAccount.Deposit(amount);
-            this.accountController.budget.SaveState();
-            handleExit();
+            try {
+                this.accountController.savingsAccount.Deposit(amount);
+                this.accountController.budget.SaveState();
+                handleExit();
+                
+            } catch (Exception e) {
+                System.out.println("Not a valid operation");
+            }
         } else {
             System.out.println("Choose an account");
         }
@@ -101,29 +145,14 @@ public class performActionController {
 
     @FXML
     public void handleAddExpense() {
-
         String name = expenseName.getText() == null ? "Default" : expenseName.getText();
         double cost = Double.parseDouble(expenseCost.getText());
         String desc = expenseDescription.getText() == null ? "Default" : expenseDescription.getText();
         SpendingCategory category = SpendingCategory.valueOf(expenseCategory.getValue());
-        Boolean is_CheckingAccount = checkingAccountBoolean.isSelected();
-        Boolean is_SavingAccount = savingsAccountBoolean.isSelected();
-        
-        if (is_CheckingAccount) {
-            Expense ex = new Expense("CheckingAccount", cost, category, desc, name);
-            this.accountController.budget.addExpense(ex);
-            this.accountController.budget.SaveState();
-            handleExit();
-        } else if (is_SavingAccount) {
-            Expense ex = new Expense("SavingAccount", cost, category, desc, name);
-            this.accountController.budget.addExpense(ex);
-            this.accountController.budget.SaveState();
-            handleExit();
-        } else {
-            System.out.println("Choose an account");
-        }
+
+        Expense ex = new Expense(name, cost, category, desc);
+        this.accountController.budget.addExpense(ex);
         this.accountController.budget.SaveState();
-        handleExit();
     }
 
     @FXML
@@ -133,10 +162,10 @@ public class performActionController {
             Parent parent = (Parent) fxmlLoader.load();
             Stage stage = (Stage) exitButton.getScene().getWindow();
             final Scene scene = new Scene(parent);
-
-            AccountController controller = (Budget_App.AccountController) fxmlLoader.getController();
-            controller = this.accountController;
-            controller.initialize();
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            //AccountController controller = (Budget_App.AccountController) fxmlLoader.getController();
+            //controller = this.accountController;
+            //controller.checkingAccountView();
             stage.setTitle("Bankaccount");
             stage.setScene(scene);
             stage.show();

@@ -1,0 +1,50 @@
+.root
+{
+    background-color: #ffffff;
+    -fx-background-color : #ffffff;
+    border-color: transparent;
+    -fx-border-color: transparent;
+}
+.button
+{      
+    background-color: #dae2ea;
+    -fx-background-color : #dae2ea;
+    -fx-text-fill : #222222;
+    border-color: transparent;
+    -fx-border-color: transparent;
+}
+.button:hover 
+{
+    background-color : #8fadc8;
+    -fx-background-color : #8fadc8;
+}
+.button:pressed 
+{
+    background-color : #55577ca1; 
+    -fx-background-color : #55577ca1;
+    
+}
+#unclicked 
+{
+    background-color :#8fadc8; 
+    -fx-background-color: #8fadc8;
+}
+
+#clicked
+{
+    background-color : #55577ca1; 
+    -fx-background-color : #55577ca1;
+}
+.textField
+{
+    background-color: #dae2ea;
+    -fx-background-color : #dae2ea;
+    border-color: transparent;
+    -fx-border-color: transparent;
+    -fx-prompt-text-fill: #000;
+}
+#textbox 
+{
+    background-color: #dae2ea;;
+    -fx-background-color: #dae2ea;;
+}

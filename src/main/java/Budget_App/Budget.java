@@ -67,7 +67,8 @@ public class Budget implements PersistenceActor {
 			writer = new PrintWriter("src/main/resources/Budget_App/Budget.txt", "UTF-8");
 			
 			for(var item : expenses){
-                writer.print(item.getConnectedAccount() + "," + String.valueOf(item.getCost()) + "," + item.getSpendingCategory() + "," + item.getDescription() + "," + item.getExpenseName());
+                writer.print(item.getExpenseName() + "," + String.valueOf(item.getCost()) + "," + item.getSpendingCategory() + "," + item.getDescription());
+                writer.print("\n");
             }
             writer.close();
 		} catch (FileNotFoundException e) {
@@ -82,10 +83,10 @@ public class Budget implements PersistenceActor {
 		try {
             ArrayList<Expense> loaded = new ArrayList<Expense>();
 			Scanner in = new Scanner(new FileReader("src/main/resources/Budget_App/Budget.txt"));
-			while (in.hasNext()) {
-				String line = in.next();
+			while (in.hasNextLine()) {
+				String line = in.nextLine();
 				String[] parts = line.split(",");
-                Expense item = new Expense(parts[0], Double.valueOf(parts[1]), SpendingCategory.valueOf(parts[2]), parts[3], parts[4]);
+                Expense item = new Expense(parts[0], Double.valueOf(parts[1]), SpendingCategory.valueOf(parts[2]), parts[3]);
                 loaded.add(item);
 			}
 			in.close();

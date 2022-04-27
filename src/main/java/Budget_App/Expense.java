@@ -18,11 +18,10 @@ public class Expense {
     private String connectedAccount;
     private String expenseName;
 
-    public Expense(String connectedAccount, double cost, SpendingCategory spendingCategory, String description, String expenseName){
+    public Expense(String expenseName, double cost, SpendingCategory spendingCategory, String description){
         this.cost = cost;
         this.spendingCategory = spendingCategory;
         this.description = description;
-        this.connectedAccount = connectedAccount;
         this.expenseName = expenseName;
     }
 
@@ -32,14 +31,6 @@ public class Expense {
 
     public void setExpenseName(String expenseName) {
         this.expenseName = expenseName;
-    }
-
-    public String getConnectedAccount() {
-        return connectedAccount;
-    }
-
-    public void setConnectedAccount(String connectedAccount) {
-        this.connectedAccount = connectedAccount;
     }
 
     public double getCost() {

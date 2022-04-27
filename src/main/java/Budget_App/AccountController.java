@@ -54,7 +54,7 @@ public class AccountController {
         savingsAccount= new SavingAccount("SavingAccount", 0, 1);
         checkingAccount= new CheckingAccount("CheckingAccount", 0, 1);
 
-        savingsAccountView();
+        checkingAccountView();
     }
 
     @FXML 
@@ -68,29 +68,6 @@ public class AccountController {
         accountDetails.getChildren().add(money);
         root.setPadding(new Insets(10, 20, 20, 20));
         root.getChildren().add(accountDetails);
-
-        if (budget.getExpenses() != null) {
-            try {
-                for (Expense ex : budget.getExpenses()) {
-                    if (ex.getConnectedAccount().equals("SavingAccount")) {
-                        VBox textbox = new VBox(5);
-                        textbox.setId("textbox");
-                        textbox.setPadding(new Insets(5, 10, 10, 10));
-                        
-                
-                        Text name = new Text("Name: " + ex.getExpenseName());
-                        Text desc = new Text("Description: " + ex.getDescription());
-                        Text cost = new Text("Cost: " + Double.toString(ex.getCost()));
-                        Text category = new Text("Category: " + ex.getSpendingCategory().toString());
-                        textbox.getChildren().addAll(name, desc, cost, category);
-                        root.getChildren().add(textbox);
-                    }
-                }
-
-            } catch(Exception e) {
-                System.err.println(e);
-            }
-        }
     }
 
     @FXML 
@@ -108,19 +85,16 @@ public class AccountController {
         if (budget.getExpenses() != null) {
             try {
                 for (Expense ex : budget.getExpenses()) {
-                    if (ex.getConnectedAccount().equals("CheckingAccount")) {
-                        VBox textbox = new VBox(5);
-                        textbox.setId("textbox");
-                        textbox.setPadding(new Insets(5, 10, 10, 10));
+                    VBox textbox = new VBox(5);
+                    textbox.setId("textbox");
+                    textbox.setPadding(new Insets(5, 10, 10, 10));
                         
-                
-                        Text name = new Text("Name: " + ex.getExpenseName());
-                        Text desc = new Text("Description: " + ex.getDescription());
-                        Text cost = new Text("Cost: " + Double.toString(ex.getCost()));
-                        Text category = new Text("Category: " + ex.getSpendingCategory().toString());
-                        textbox.getChildren().addAll(name, desc, cost, category);
-                        root.getChildren().add(textbox);
-                    }
+                    Text name = new Text("Name: " + ex.getExpenseName());
+                    Text desc = new Text("Description: " + ex.getDescription());
+                    Text cost = new Text("Cost: " + Double.toString(ex.getCost()));
+                    Text category = new Text("Category: " + ex.getSpendingCategory().toString());                        
+                    textbox.getChildren().addAll(name, desc, cost, category);
+                    root.getChildren().add(textbox);
                 }
 
             } catch(Exception e) {
@@ -170,6 +144,7 @@ public class AccountController {
         Parent parents = (Parent) fxmlLoader.load();
         Stage stage = (Stage) savingsAccountButton.getScene().getWindow();
         Scene scene = new Scene(parents);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         var controller = fxmlLoader.getController();
         ((Budget_App.performActionController) controller).setAccountController(this);
         stage.setTitle("New " + fxmlName);
