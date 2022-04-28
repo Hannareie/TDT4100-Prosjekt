@@ -1,0 +1,107 @@
+@startuml "Class diagram"
+title Budget Application's Class Diagram
+
+namespace main.java {
+    namespace Budget_App {
+        abstract class main.java.Budget_App.BankAccount {
+            - double balance
+            - String AccNum
+
+            + boolean Withdraw(double amount)
+            + String getAccNum()
+            + double getBalance() 
+            + abstract double simulateEndMonth(double expenses)
+            + boolean Transfer(BankAccount ToReceiveTransfer, double amount)
+        }
+
+        class main.java.Budget_App.Budget {
+            - double monthlyExpenseTotal
+            - ArrayList<Expense> expenses
+
+            + Budget()
+            + Budget(ArrayList<Expense> expenses)
+            + String endMonth(BankAccount account)
+            + ArrayList<Expense> getExpenses()
+            + void addExpense(Expense expense)
+            + void updateTotalMonthly()
+            + void setMonthlyTotalExpenses(double monthlyExpenseTotal)
+            + double getMonthlyExpenseTotal()
+            + void SaveState()
+            + void LoadState()
+        }
+
+        class main.java.Budget_App.CheckingAccount {
+            - String cardNumber
+            - String accountName
+
+            + CheckingAccount(String accountName, String cardNumber)
+            + CheckingAccount(String string, int i, int j)
+            + double simulateEndMonth(double expenses)
+            + void setCardNumber(String cardNumber)
+            + String getAccountName()
+            + void setAccountName(String accountName)
+            + String getCardNumber()
+            + double getBalance()
+            + boolean Withdraw(double amount)
+            + boolean validateCardNumber(String cardNumber)
+            + void SaveState()
+        }
+
+        class main.java.Budget_App.SavingAccount {
+            - String accountName
+            - double interestRate
+            - double withdrawalLimit
+            - double balance
+
+            + SavingAccount()
+            + SavingAccount(String accountName, double interestRate, double withdrawalLimit)
+            + void LoadSavingAccount()
+            + void saveSavingAccount()
+            + String getAccountName()
+            + double simulateEndMonth(double expenses)
+            + void setAccountName(String accountName)
+            + double getBalance()
+            + void setInterestRate(double interestRate)
+            + double getInterestRate()
+            + boolean Withdraw(double amount)
+            + void LoadState()
+            + void SaveState()
+        }
+
+        class main.java.Budget_App.Expense {
+            + enum SpendingCategory
+            - double cost
+            - SpendingCategory spendingCategory
+            - String description
+            - String expenseName
+
+            + Expense(String expenseName, double cost, SpendingCategory spendingCategory, String description)
+            + String getExpenseName()
+            + void setExpenseName(String expenseName)
+            + double getCost()
+            + void setCost(double cost)
+            + SpendingCategory getSpendingCategory()
+            + void setSpendingCategory(SpendingCategory spendingCategory)
+            + String getDescription()
+            + void setDescription(String description)
+        }
+
+        interface main.java.Budget_App.PersistenceActor {
+            + void LoadState()
+            + void SaveState()
+        }
+
+        PersistenceActor --> SavingAccount
+        PersistenceActor --> CheckingAccount
+        PersistenceActor --> Budget
+
+        BankAccount --> SavingAccount
+        BankAccount --> CheckingAccount
+    }
+}
+
+right footer
+    Core UML diagram
+endfooter
+
+@enduml
