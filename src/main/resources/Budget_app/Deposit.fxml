@@ -15,7 +15,8 @@
             <Button fx:id="handleDepositButton" layoutX="130.0" layoutY="499.0" mnemonicParsing="false" onMouseClicked="#handleDeposit" prefHeight="39.0" prefWidth="192.0" text="Legg til penger">
                <font>
                   <Font size="18.0" />
-               </font></Button>
+               </font>
+            </Button>
             <Text fx:id="headerText" layoutX="198.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Innskudd av penger" wrappingWidth="276.86328125">
                <font>
                   <Font size="29.0" />
@@ -26,7 +27,7 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="Amount" layoutX="57.0" layoutY="258.0" prefHeight="35.0" prefWidth="516.0" />
+            <TextField fx:id="withdrawAmount" layoutX="57.0" layoutY="258.0" prefHeight="35.0" prefWidth="516.0" />
             <Text layoutX="60.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beløp" wrappingWidth="118.119140625">
                <font>
                   <Font size="18.0" />

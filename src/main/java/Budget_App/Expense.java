@@ -1,7 +1,7 @@
 package Budget_App;
 
 public class Expense {
-    
+
     public enum SpendingCategory {
         Grocery,
         Entertainment,
@@ -15,10 +15,9 @@ public class Expense {
     private double cost;
     private SpendingCategory spendingCategory;
     private String description;
-    private String connectedAccount;
     private String expenseName;
 
-    public Expense(String expenseName, double cost, SpendingCategory spendingCategory, String description){
+    public Expense(String expenseName, double cost, SpendingCategory spendingCategory, String description) {
         this.cost = cost;
         this.spendingCategory = spendingCategory;
         this.description = description;

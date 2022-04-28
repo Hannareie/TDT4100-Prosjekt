@@ -16,55 +16,55 @@ import javafx.scene.Scene;
 
 public class performActionController {
 
-        public AccountController accountController;
+    public AccountController accountController;
 
-        public void setAccountController(AccountController accountController) {
-            this.accountController = accountController;
-        }
+    public void setAccountController(AccountController accountController) {
+        this.accountController = accountController;
+    }
 
-        //Common
-        @FXML
-        private Button exitButton;
-        @FXML
-        private CheckBox savingsAccountBoolean;
-        @FXML
-        private CheckBox checkingAccountBoolean;
-        @FXML
-        private CheckBox expSavingsBool;
-        @FXML
-        private TextField Amount;
+    // Common
+    @FXML
+    private Button exitButton;
+    @FXML
+    private CheckBox savingsAccountBoolean;
+    @FXML
+    private CheckBox checkingAccountBoolean;
+    @FXML
+    private CheckBox expSavingsBool;
+    @FXML
+    private TextField withdrawAmount;
 
-        //fields for handelig requests
-        @FXML
-        private Button handleWithdrawButton;
-        @FXML
-        private Button handleDepositButton;
-        @FXML 
-        private Button handleTransferButton;
+    // fields for handelig requests
+    @FXML
+    private Button handleWithdrawButton;
+    @FXML
+    private Button handleDepositButton;
+    @FXML
+    private Button handleTransferButton;
 
-        //fields for adding an expense
-        @FXML
-        private Button AddExpenseButton;
-        @FXML
-        private TextField expenseName;
-        @FXML
-        private TextField expenseCost;
-        @FXML
-        private TextArea expenseDescription;
-        @FXML
-        private ChoiceBox<String> expenseCategory;
+    // fields for adding an expense
+    @FXML
+    private Button AddExpenseButton;
+    @FXML
+    private TextField expenseName;
+    @FXML
+    private TextField expenseCost;
+    @FXML
+    private TextArea expenseDescription;
+    @FXML
+    private ChoiceBox<String> expenseCategory;
 
-        //fields for handlig transfers
-        @FXML
-        private ChoiceBox<String> accountFrom;
-        @FXML
-        private ChoiceBox<String> accountTo;
+    // fields for handlig transfers
+    @FXML
+    private ChoiceBox<String> accountFrom;
+    @FXML
+    private ChoiceBox<String> accountTo;
 
     @FXML
     public void handleTransfer() {
         String from = accountFrom.getValue();
         String to = accountTo.getValue();
-        double amount = Double.parseDouble(Amount.getText());
+        double amount = Double.parseDouble(withdrawAmount.getText());
 
         if (from.equals("Sparekonto")) {
             if (to.equals("Brukskonto")) {
@@ -85,25 +85,24 @@ public class performActionController {
 
     @FXML
     public void handleWithdraw() {
-        String withdraw = Amount.getText();
+        String withdraw = withdrawAmount.getText() == null ? "0" : withdrawAmount.getText();
         Boolean is_CheckingAccount = checkingAccountBoolean.isSelected();
         Boolean is_SavingAccount = savingsAccountBoolean.isSelected();
         double amount = Double.parseDouble(withdraw);
 
-        if (is_CheckingAccount){
+        if (is_CheckingAccount) {
             try {
                 this.accountController.checkingAccount.Withdraw(amount);
                 handleExit();
-                
+
             } catch (Exception e) {
                 System.out.println("Not a valid operation");
             }
-        }
-        else if (is_SavingAccount) {
+        } else if (is_SavingAccount) {
             try {
                 this.accountController.savingsAccount.Withdraw(amount);
                 handleExit();
-                
+
             } catch (Exception e) {
                 System.out.println("Not a valid operation");
             }
@@ -112,29 +111,28 @@ public class performActionController {
         }
     }
 
-    @FXML 
+    @FXML
     public void handleDeposit() {
-        String deposit = Amount.getText();
+        String deposit = withdrawAmount.getText();
         Boolean is_CheckingAccount = checkingAccountBoolean.isSelected();
         Boolean is_SavingAccount = savingsAccountBoolean.isSelected();
         double amount = Double.parseDouble(deposit);
 
-        if (is_CheckingAccount){
+        if (is_CheckingAccount) {
             try {
                 this.accountController.checkingAccount.Deposit(amount);
                 this.accountController.budget.SaveState();
                 handleExit();
-                
+
             } catch (Exception e) {
                 System.out.println("Not a valid operation");
             }
-        }
-        else if (is_SavingAccount) {
+        } else if (is_SavingAccount) {
             try {
                 this.accountController.savingsAccount.Deposit(amount);
                 this.accountController.budget.SaveState();
                 handleExit();
-                
+
             } catch (Exception e) {
                 System.out.println("Not a valid operation");
             }
@@ -145,10 +143,15 @@ public class performActionController {
 
     @FXML
     public void handleAddExpense() {
+
         String name = expenseName.getText() == null ? "Default" : expenseName.getText();
         double cost = Double.parseDouble(expenseCost.getText());
         String desc = expenseDescription.getText() == null ? "Default" : expenseDescription.getText();
         SpendingCategory category = SpendingCategory.valueOf(expenseCategory.getValue());
+
+        if (accountController.checkingAccount.getBalance() < cost) {
+            throw new IllegalArgumentException();
+        }
 
         Expense ex = new Expense(name, cost, category, desc);
         this.accountController.budget.addExpense(ex);
@@ -163,9 +166,13 @@ public class performActionController {
             Stage stage = (Stage) exitButton.getScene().getWindow();
             final Scene scene = new Scene(parent);
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            //AccountController controller = (Budget_App.AccountController) fxmlLoader.getController();
-            //controller = this.accountController;
-            //controller.checkingAccountView();
+
+            AccountController controller = (Budget_App.AccountController) fxmlLoader.getController();
+            controller.budget = this.accountController.budget;
+            controller.savingsAccount = this.accountController.savingsAccount;
+            controller.checkingAccount = this.accountController.checkingAccount;
+            controller.checkingAccountView();
+
             stage.setTitle("Bankaccount");
             stage.setScene(scene);
             stage.show();

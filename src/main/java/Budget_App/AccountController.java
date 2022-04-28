@@ -2,7 +2,6 @@ package Budget_App;
 
 import java.util.ArrayList;
 
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -16,7 +15,7 @@ import javafx.scene.Scene;
 
 public class AccountController {
 
-    //Buttons
+    // Buttons
     @FXML
     private Button savingsAccountButton;
     @FXML
@@ -24,26 +23,27 @@ public class AccountController {
     @FXML
     private Button changeDepositButton;
     @FXML
-    private Button changeTransferButton;    
+    private Button changeTransferButton;
     @FXML
     private Button changeWithdrawButton;
-    @FXML 
+    @FXML
     private Button newExpenseButton;
-    @FXML 
-    private Button cancelButton; 
-    @FXML 
+    @FXML
+    private Button cancelButton;
+    @FXML
     private Text headerText;
     @FXML
     private VBox root;
-  
-    //Main objects
+
+    // Main objects
     public Budget budget;
-    public BankAccount savingsAccount;  // initialized in fxml init function due to required constructor inputs
+    public BankAccount savingsAccount; // initialized in fxml init function due to required constructor inputs
     public BankAccount checkingAccount; // initialized in fxml init function due to required constructor inputs
 
     public BankAccount getSavingsAccount() {
         return this.savingsAccount;
     }
+
     public BankAccount getCheckingAccount() {
         return this.checkingAccount;
     }
@@ -51,13 +51,15 @@ public class AccountController {
     @FXML
     public void initialize() throws IOException {
         budget = new Budget(new ArrayList<Expense>());
-        savingsAccount= new SavingAccount("SavingAccount", 0, 1);
-        checkingAccount= new CheckingAccount("CheckingAccount", 0, 1);
+        savingsAccount = new SavingAccount("SavingAccount", 0, 500);
+        ((SavingAccount) savingsAccount).LoadState();
+        checkingAccount = new CheckingAccount("CheckingAccount", 0, 1); // load from file
+        ((CheckingAccount) checkingAccount).LoadState();
 
         checkingAccountView();
     }
 
-    @FXML 
+    @FXML
     public void savingsAccountView() {
         root.getChildren().clear();
         budget.LoadState();
@@ -70,7 +72,7 @@ public class AccountController {
         root.getChildren().add(accountDetails);
     }
 
-    @FXML 
+    @FXML
     public void checkingAccountView() {
         root.getChildren().clear();
         budget.LoadState();
@@ -88,58 +90,58 @@ public class AccountController {
                     VBox textbox = new VBox(5);
                     textbox.setId("textbox");
                     textbox.setPadding(new Insets(5, 10, 10, 10));
-                        
+
                     Text name = new Text("Name: " + ex.getExpenseName());
                     Text desc = new Text("Description: " + ex.getDescription());
                     Text cost = new Text("Cost: " + Double.toString(ex.getCost()));
-                    Text category = new Text("Category: " + ex.getSpendingCategory().toString());                        
+                    Text category = new Text("Category: " + ex.getSpendingCategory().toString());
                     textbox.getChildren().addAll(name, desc, cost, category);
                     root.getChildren().add(textbox);
                 }
 
-            } catch(Exception e) {
+            } catch (Exception e) {
                 System.err.println(e);
             }
         }
     }
 
-    @FXML 
+    @FXML
     public void changeNewExpenseView() {
         try {
             switchTo("NewExpense");
-          } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML 
+    @FXML
     public void changeDepositView() {
         try {
             switchTo("Deposit");
-          } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML 
+    @FXML
     public void changeTransferView() {
         try {
             switchTo("Transfer");
-          } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML 
+    @FXML
     public void changeWithdrawView() {
         try {
             switchTo("Withdraw");
-          } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void switchTo(String fxmlName) throws IOException{
+    public void switchTo(String fxmlName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlName + ".fxml"));
         Parent parents = (Parent) fxmlLoader.load();
         Stage stage = (Stage) savingsAccountButton.getScene().getWindow();
@@ -152,4 +154,3 @@ public class AccountController {
         stage.show();
     }
 }
-
